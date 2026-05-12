@@ -1,0 +1,55 @@
+{
+  "entities": {
+    "Donation": {
+      "title": "Donation",
+      "description": "A record of a financial contribution to TechMPower.",
+      "type": "object",
+      "properties": {
+        "amount": { "type": "number", "description": "The amount in USD." },
+        "donorName": { "type": "string", "description": "Display name of the donor (or 'Anonymous')." },
+        "email": { "type": "string", "format": "email", "description": "Donor's contact email." },
+        "timestamp": { "type": "string", "format": "date-time", "description": "Server timestamp of the donation." }
+      },
+      "required": ["amount", "donorName", "timestamp"]
+    },
+    "Event": {
+      "title": "Event",
+      "description": "A fundraising or community event hosted by TechMPower.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "date": { "type": "string" },
+        "location": { "type": "string" },
+        "type": { "type": "string" },
+        "featured": { "type": "boolean" },
+        "image": { "type": "string" }
+      },
+      "required": ["title", "description", "date", "location", "type"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "A user with administrative privileges.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["owner", "editor"] }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "donations": {
+      "schema": "Donation",
+      "description": "Public record of donations (PII restricted)."
+    },
+    "events": {
+      "schema": "Event",
+      "description": "TechMPower events list."
+    },
+    "admins": {
+      "schema": "Admin",
+      "description": "Registry of users allowed into the admin dashboard."
+    }
+  }
+}
